@@ -1,6 +1,5 @@
 apiVersion: tekton.dev/v1
 kind: PipelineRun
-#
 metadata:
   annotations:
     build.appstudio.openshift.io/repo: https://github.com/opendatahub-io/kserve?rev={{revision}}
@@ -29,6 +28,10 @@ spec:
     value: kserve-module-controller.Dockerfile
   - name: path-context
     value: .
+  - name: component-name
+    value: "kserve-module-controller"
+  - name: component-display-name
+    value: "KServe Module Controller"
   pipelineRef:
     resolver: git
     params:
@@ -37,7 +40,7 @@ spec:
     - name: revision
       value: main
     - name: pathInRepo
-      value: pipeline/multi-arch-container-build.yaml
+      value: pipeline/multi-arch-module-operator-build.yaml
   taskRunSpecs:
     - pipelineTaskName: sast-shell-check
       computeResources:
